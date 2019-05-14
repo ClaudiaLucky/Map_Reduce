@@ -1,6 +1,9 @@
 package mapreduce
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
 
 //
 // schedule() starts and waits for all tasks in the given phase (mapPhase
@@ -22,13 +25,80 @@ func schedule(jobName string, mapFiles []string, nReduce int, phase jobPhase, re
 		ntasks = nReduce
 		n_other = len(mapFiles)
 	}
-
+	//fmt.Println("Scheduleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
 	fmt.Printf("Schedule: %v %v tasks (%d I/Os)\n", ntasks, phase, n_other)
+	//fmt.Println("jobName: ", jobName)
+	//fmt.Println("Phase: ", phase)
+	//fmt.Println("mapFiles: ", mapFiles)
+	var wg sync.WaitGroup
 
+	if phase == mapPhase {
+		wg.Add(ntasks)
+		for i, j := range mapFiles {
+
+			arg := DoTaskArgs{jobName, j, phase, i, n_other}
+			var reply ShutdownReply
+			var ok bool
+			go func() {
+				v, _ := <-registerChan
+				ok = call(v, "Worker.DoTask", arg, &reply)
+				if ok == true {
+					go func() { registerChan <- v }()
+					wg.Done()
+				}
+				for ok == false {
+					v, _ = <-registerChan
+
+					ok = call(v, "Worker.DoTask", arg, &reply)
+
+					if ok == true {
+						go func() { registerChan <- v }()
+						wg.Done()
+						break
+					}
+				}
+			}()
+		}
+		wg.Wait()
+	} else if phase == reducePhase {
+		wg.Add(nReduce)
+		for i := 0; i < nReduce; i++ {
+			arg := DoTaskArgs{jobName, "", phase, i, n_other}
+			var reply ShutdownReply
+			var ok bool
+			go func() {
+				v, _ := <-registerChan
+				ok = call(v, "Worker.DoTask", arg, &reply)
+
+				if ok == true {
+					go func() {
+						registerChan <- v
+					}()
+					wg.Done()
+				}
+				for ok == false {
+					v, _ = <-registerChan
+					//fmt.Println("new worker redoOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO: ", v)
+
+					//fmt.Println("PASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSsss")
+
+					ok = call(v, "Worker.DoTask", arg, &reply)
+					if ok == true {
+						go func() { registerChan <- v }()
+						wg.Done()
+						break
+					}
+				}
+			}()
+
+		}
+		wg.Wait()
+
+	}
 	// All ntasks tasks have to be scheduled on workers. Once all tasks
 	// have completed successfully, schedule() should return.
 	//
-	// Your code here (Part 2, 2B).
 	//
 	fmt.Printf("Schedule: %v done\n", phase)
+	//fmt.Printf("\n\n\n")
 }
