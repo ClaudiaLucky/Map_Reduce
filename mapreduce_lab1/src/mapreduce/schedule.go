@@ -78,9 +78,6 @@ func schedule(jobName string, mapFiles []string, nReduce int, phase jobPhase, re
 				}
 				for ok == false {
 					v, _ = <-registerChan
-					//fmt.Println("new worker redoOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO: ", v)
-
-					//fmt.Println("PASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSsss")
 
 					ok = call(v, "Worker.DoTask", arg, &reply)
 					if ok == true {
