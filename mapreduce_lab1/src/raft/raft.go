@@ -436,14 +436,17 @@ func (rf *Raft) startAgreement() {
 			//nextIndex := rf.nextIndex[i]
 			//entries := rf.log[nextIndex:len(rf.log)]
 			if LastLogIndex >= rf.nextIndex[i] {
+				entries := make([]LogEntry, len(rf.log[rf.nextIndex[i]:]))
+				copy(entries, rf.log[rf.nextIndex[i]:])
 				args := AppendEntriesArgs{Term: rf.currentTerm, LeaderID: rf.me, PrevLogIndex: rf.nextIndex[i] - 1,
-					PrevLogTerm: rf.log[rf.nextIndex[i]-1].Term, Entries: rf.log[rf.nextIndex[i]:len(rf.log)], LeaderCommit: rf.commitIndex}
-				reply := AppendEntriesReply{}
+					PrevLogTerm: rf.log[rf.nextIndex[i]-1].Term, Entries: entries, LeaderCommit: rf.commitIndex}
+				var reply AppendEntriesReply
 				go rf.sendAppendEntries(i, args, &reply)
 			}
-		}
 
+		}
 	}
+
 	rf.mu.Unlock()
 }
 func (rf *Raft) checkCommited() {
