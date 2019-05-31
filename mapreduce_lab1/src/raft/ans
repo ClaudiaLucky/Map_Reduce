@@ -1,0 +1,631 @@
+Test (3B): basic agreement ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.5		5	     36		   3
+Test (3B): agreement despite follower disconnection ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.4		3	    255		   8
+Test (3B): no agreement if too many followers disconnect ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.4		5	    755		   4
+Test (3B): concurrent Start()s ...
+test index is 2 
+servers agree index = 2 , cmd = 100
+test index is 3 
+servers agree index = 3 , cmd = 104
+test index is 4 
+servers agree index = 4 , cmd = 101
+test index is 5 
+servers agree index = 5 , cmd = 102
+test index is 6 
+servers agree index = 6 , cmd = 103
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.7		3	     27		   6
+Test (3B): rejoin of partitioned leader ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.8		3	    568		   4
+Test (3B): leader backs up quickly over incorrect follower logs ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --    20.6		5	   10303		 102
+Test (3B): RPC counts aren't too high ...
+servers agree index = 2 , cmd = 1139245502
+servers agree index = 3 , cmd = 1984577878
+servers agree index = 4 , cmd = 1770512546
+servers agree index = 5 , cmd = 1135768625
+servers agree index = 6 , cmd = 691930575
+servers agree index = 7 , cmd = 1549278434
+servers agree index = 8 , cmd = 2044223062
+servers agree index = 9 , cmd = 18881295
+servers agree index = 10 , cmd = 414865199
+servers agree index = 11 , cmd = 546048128
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     2.1		3	     58		  12
+PASS
+ok  	raft	39.580s
+Test (3B): basic agreement ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.5		5	     44		   3
+Test (3B): agreement despite follower disconnection ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.4		3	    255		   8
+Test (3B): no agreement if too many followers disconnect ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.3		5	    740		   4
+Test (3B): concurrent Start()s ...
+test index is 2 
+servers agree index = 2 , cmd = 100
+test index is 3 
+servers agree index = 3 , cmd = 102
+test index is 4 
+servers agree index = 4 , cmd = 101
+test index is 5 
+servers agree index = 5 , cmd = 103
+test index is 6 
+servers agree index = 6 , cmd = 104
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.6		3	     26		   6
+Test (3B): rejoin of partitioned leader ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     4.2		3	    586		   4
+Test (3B): leader backs up quickly over incorrect follower logs ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --    17.5		5	   8608		 102
+Test (3B): RPC counts aren't too high ...
+servers agree index = 2 , cmd = 1891898864
+servers agree index = 3 , cmd = 1190345869
+servers agree index = 4 , cmd = 316325383
+servers agree index = 5 , cmd = 1971651169
+servers agree index = 6 , cmd = 1607461538
+servers agree index = 7 , cmd = 1752883138
+servers agree index = 8 , cmd = 1510555155
+servers agree index = 9 , cmd = 952717255
+servers agree index = 10 , cmd = 1930364230
+servers agree index = 11 , cmd = 152153930
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     2.2		3	     63		  12
+PASS
+ok  	raft	34.805s
+Test (3B): basic agreement ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.5		5	     36		   3
+Test (3B): agreement despite follower disconnection ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.4		3	    251		   8
+Test (3B): no agreement if too many followers disconnect ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.4		5	    745		   4
+Test (3B): concurrent Start()s ...
+test index is 2 
+servers agree index = 2 , cmd = 101
+test index is 3 
+servers agree index = 3 , cmd = 104
+test index is 4 
+servers agree index = 4 , cmd = 103
+test index is 5 
+servers agree index = 5 , cmd = 100
+test index is 6 
+servers agree index = 6 , cmd = 102
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.7		3	     33		   6
+Test (3B): rejoin of partitioned leader ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.6		3	    565		   4
+Test (3B): leader backs up quickly over incorrect follower logs ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --    18.0		5	   8810		 102
+Test (3B): RPC counts aren't too high ...
+servers agree index = 2 , cmd = 1131862811
+servers agree index = 3 , cmd = 1515499456
+servers agree index = 4 , cmd = 1800010528
+servers agree index = 5 , cmd = 758646545
+servers agree index = 6 , cmd = 681763045
+servers agree index = 7 , cmd = 784112297
+servers agree index = 8 , cmd = 961208412
+servers agree index = 9 , cmd = 1253230763
+servers agree index = 10 , cmd = 1836293583
+servers agree index = 11 , cmd = 498308386
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     2.1		3	     65		  12
+PASS
+ok  	raft	36.845s
+Test (3B): basic agreement ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.5		5	     32		   3
+Test (3B): agreement despite follower disconnection ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.4		3	    255		   8
+Test (3B): no agreement if too many followers disconnect ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.6		5	    759		   4
+Test (3B): concurrent Start()s ...
+test index is 2 
+servers agree index = 2 , cmd = 100
+test index is 3 
+servers agree index = 3 , cmd = 101
+test index is 4 
+servers agree index = 4 , cmd = 102
+test index is 5 
+servers agree index = 5 , cmd = 103
+test index is 6 
+servers agree index = 6 , cmd = 104
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.6		3	     26		   6
+Test (3B): rejoin of partitioned leader ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.6		3	    555		   4
+Test (3B): leader backs up quickly over incorrect follower logs ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --    17.8		5	   8618		 102
+Test (3B): RPC counts aren't too high ...
+servers agree index = 2 , cmd = 355642696
+servers agree index = 3 , cmd = 978396144
+servers agree index = 4 , cmd = 1002402998
+servers agree index = 5 , cmd = 1134860599
+servers agree index = 6 , cmd = 1506086409
+servers agree index = 7 , cmd = 1709126490
+servers agree index = 8 , cmd = 703651348
+servers agree index = 9 , cmd = 2105092665
+servers agree index = 10 , cmd = 1519852219
+servers agree index = 11 , cmd = 61134783
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     2.2		3	     65		  12
+PASS
+ok  	raft	36.846s
+Test (3B): basic agreement ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.5		5	     40		   3
+Test (3B): agreement despite follower disconnection ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.5		3	    262		   8
+Test (3B): no agreement if too many followers disconnect ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.3		5	    756		   4
+Test (3B): concurrent Start()s ...
+test index is 2 
+servers agree index = 2 , cmd = 101
+test index is 3 
+servers agree index = 3 , cmd = 104
+test index is 4 
+servers agree index = 4 , cmd = 102
+test index is 5 
+servers agree index = 5 , cmd = 100
+test index is 6 
+servers agree index = 6 , cmd = 103
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.5		3	     26		   6
+Test (3B): rejoin of partitioned leader ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.7		3	    512		   4
+Test (3B): leader backs up quickly over incorrect follower logs ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --    17.8		5	   9339		 102
+Test (3B): RPC counts aren't too high ...
+servers agree index = 2 , cmd = 620721260
+servers agree index = 3 , cmd = 784793070
+servers agree index = 4 , cmd = 1458731748
+servers agree index = 5 , cmd = 1401956709
+servers agree index = 6 , cmd = 302262003
+servers agree index = 7 , cmd = 1624662205
+servers agree index = 8 , cmd = 211177089
+servers agree index = 9 , cmd = 495358650
+servers agree index = 10 , cmd = 1738773662
+servers agree index = 11 , cmd = 1480882964
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     2.2		3	     53		  12
+PASS
+ok  	raft	34.693s
+Test (3B): basic agreement ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.5		5	     40		   3
+Test (3B): agreement despite follower disconnection ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.4		3	    255		   8
+Test (3B): no agreement if too many followers disconnect ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.3		5	    749		   4
+Test (3B): concurrent Start()s ...
+test index is 2 
+servers agree index = 2 , cmd = 104
+test index is 3 
+servers agree index = 3 , cmd = 102
+test index is 4 
+servers agree index = 4 , cmd = 103
+test index is 5 
+servers agree index = 5 , cmd = 100
+test index is 6 
+servers agree index = 6 , cmd = 101
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.7		3	     28		   6
+Test (3B): rejoin of partitioned leader ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.7		3	    517		   4
+Test (3B): leader backs up quickly over incorrect follower logs ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --    17.4		5	   8553		 102
+Test (3B): RPC counts aren't too high ...
+servers agree index = 2 , cmd = 1072416922
+servers agree index = 3 , cmd = 709953891
+servers agree index = 4 , cmd = 122900805
+servers agree index = 5 , cmd = 850285467
+servers agree index = 6 , cmd = 345901627
+servers agree index = 7 , cmd = 1095967413
+servers agree index = 8 , cmd = 1118927157
+servers agree index = 9 , cmd = 505640327
+servers agree index = 10 , cmd = 32924238
+servers agree index = 11 , cmd = 61721606
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     2.1		3	     68		  12
+PASS
+ok  	raft	34.315s
+Test (3B): basic agreement ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.5		5	     32		   3
+Test (3B): agreement despite follower disconnection ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.3		3	    247		   8
+Test (3B): no agreement if too many followers disconnect ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.4		5	    756		   4
+Test (3B): concurrent Start()s ...
+test index is 2 
+servers agree index = 2 , cmd = 103
+test index is 3 
+servers agree index = 3 , cmd = 100
+test index is 4 
+servers agree index = 4 , cmd = 101
+test index is 5 
+servers agree index = 5 , cmd = 102
+test index is 6 
+servers agree index = 6 , cmd = 104
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.7		3	     23		   6
+Test (3B): rejoin of partitioned leader ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.7		3	    568		   4
+Test (3B): leader backs up quickly over incorrect follower logs ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --    17.7		5	   8717		 102
+Test (3B): RPC counts aren't too high ...
+servers agree index = 2 , cmd = 858288800
+servers agree index = 3 , cmd = 520502380
+servers agree index = 4 , cmd = 970404470
+servers agree index = 5 , cmd = 596941681
+servers agree index = 6 , cmd = 1461167304
+servers agree index = 7 , cmd = 1954725121
+servers agree index = 8 , cmd = 1122168428
+servers agree index = 9 , cmd = 749390909
+servers agree index = 10 , cmd = 556011818
+servers agree index = 11 , cmd = 1338400527
+--- FAIL: TestCount3B (1.35s)
+    test_test.go:490: too many RPCs (43) for 10 entries
+FAIL
+exit status 1
+FAIL	raft	34.713s
+Test (3B): basic agreement ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.7		5	     48		   3
+Test (3B): agreement despite follower disconnection ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.4		3	    247		   8
+Test (3B): no agreement if too many followers disconnect ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.4		5	    742		   4
+Test (3B): concurrent Start()s ...
+test index is 2 
+servers agree index = 2 , cmd = 100
+test index is 3 
+servers agree index = 3 , cmd = 101
+test index is 4 
+servers agree index = 4 , cmd = 102
+test index is 5 
+servers agree index = 5 , cmd = 103
+test index is 6 
+servers agree index = 6 , cmd = 104
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.6		3	     25		   6
+Test (3B): rejoin of partitioned leader ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.6		3	    548		   4
+Test (3B): leader backs up quickly over incorrect follower logs ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --    17.7		5	   8613		 103
+Test (3B): RPC counts aren't too high ...
+servers agree index = 2 , cmd = 1179396104
+servers agree index = 3 , cmd = 722828056
+servers agree index = 4 , cmd = 1020229195
+servers agree index = 5 , cmd = 1616556033
+servers agree index = 6 , cmd = 242123892
+servers agree index = 7 , cmd = 1693261293
+servers agree index = 8 , cmd = 133013398
+servers agree index = 9 , cmd = 1419331526
+servers agree index = 10 , cmd = 780245889
+servers agree index = 11 , cmd = 370509758
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     2.1		3	     57		  12
+PASS
+ok  	raft	36.629s
+Test (3B): basic agreement ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.5		5	     44		   3
+Test (3B): agreement despite follower disconnection ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.5		3	    259		   8
+Test (3B): no agreement if too many followers disconnect ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.4		5	    695		   3
+Test (3B): concurrent Start()s ...
+test index is 2 
+servers agree index = 2 , cmd = 100
+test index is 3 
+servers agree index = 3 , cmd = 104
+test index is 4 
+servers agree index = 4 , cmd = 101
+test index is 5 
+servers agree index = 5 , cmd = 102
+test index is 6 
+servers agree index = 6 , cmd = 103
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.7		3	     29		   6
+Test (3B): rejoin of partitioned leader ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.8		3	    488		   4
+Test (3B): leader backs up quickly over incorrect follower logs ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --    17.9		5	   8466		 102
+Test (3B): RPC counts aren't too high ...
+servers agree index = 2 , cmd = 119086734
+servers agree index = 3 , cmd = 215373612
+servers agree index = 4 , cmd = 1462702108
+servers agree index = 5 , cmd = 2139623071
+servers agree index = 6 , cmd = 1500426434
+servers agree index = 7 , cmd = 1637307974
+servers agree index = 8 , cmd = 1903428949
+servers agree index = 9 , cmd = 485887681
+servers agree index = 10 , cmd = 318508950
+servers agree index = 11 , cmd = 337953677
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     2.2		3	     58		  12
+PASS
+ok  	raft	35.070s
+Test (3B): basic agreement ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.5		5	     40		   3
+Test (3B): agreement despite follower disconnection ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.3		3	    224		   8
+Test (3B): no agreement if too many followers disconnect ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.4		5	    696		   4
+Test (3B): concurrent Start()s ...
+test index is 2 
+servers agree index = 2 , cmd = 100
+test index is 3 
+servers agree index = 3 , cmd = 104
+test index is 4 
+servers agree index = 4 , cmd = 101
+test index is 5 
+servers agree index = 5 , cmd = 102
+test index is 6 
+servers agree index = 6 , cmd = 103
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.7		3	     26		   6
+Test (3B): rejoin of partitioned leader ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.7		3	    531		   4
+Test (3B): leader backs up quickly over incorrect follower logs ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --    15.9		5	   8284		 102
+Test (3B): RPC counts aren't too high ...
+servers agree index = 2 , cmd = 1956099301
+servers agree index = 3 , cmd = 808169551
+servers agree index = 4 , cmd = 1152547011
+servers agree index = 5 , cmd = 1515043235
+servers agree index = 6 , cmd = 1703611101
+servers agree index = 7 , cmd = 2115670747
+servers agree index = 8 , cmd = 1219443228
+servers agree index = 9 , cmd = 1158632086
+servers agree index = 10 , cmd = 1932917406
+servers agree index = 11 , cmd = 206286676
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     2.1		3	     62		  12
+PASS
+ok  	raft	34.612s
+Test (3B): basic agreement ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.5		5	     40		   3
+Test (3B): agreement despite follower disconnection ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.3		3	    231		   8
+Test (3B): no agreement if too many followers disconnect ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.3		5	    697		   4
+Test (3B): concurrent Start()s ...
+test index is 2 
+servers agree index = 2 , cmd = 103
+test index is 3 
+servers agree index = 3 , cmd = 101
+test index is 4 
+servers agree index = 4 , cmd = 102
+test index is 5 
+servers agree index = 5 , cmd = 104
+test index is 6 
+servers agree index = 6 , cmd = 100
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.6		3	     26		   6
+Test (3B): rejoin of partitioned leader ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.7		3	    485		   4
+Test (3B): leader backs up quickly over incorrect follower logs ...
+--- FAIL: TestBackup3B (18.26s)
+    config.go:472: one(2940547936624094943) failed to reach agreement
+Test (3B): RPC counts aren't too high ...
+servers agree index = 2 , cmd = 1264058774
+servers agree index = 3 , cmd = 421098152
+servers agree index = 4 , cmd = 420616533
+servers agree index = 5 , cmd = 706471663
+servers agree index = 6 , cmd = 522874863
+servers agree index = 7 , cmd = 2008228930
+servers agree index = 8 , cmd = 948760082
+servers agree index = 9 , cmd = 284440570
+servers agree index = 10 , cmd = 994707098
+servers agree index = 11 , cmd = 742098102
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     2.1		3	     66		  12
+FAIL
+exit status 1
+FAIL	raft	33.972s
+Test (3B): basic agreement ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.7		5	     52		   3
+Test (3B): agreement despite follower disconnection ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.4		3	    249		   8
+Test (3B): no agreement if too many followers disconnect ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.4		5	    705		   4
+Test (3B): concurrent Start()s ...
+test index is 2 
+servers agree index = 2 , cmd = 100
+test index is 3 
+servers agree index = 3 , cmd = 104
+test index is 4 
+servers agree index = 4 , cmd = 101
+test index is 5 
+servers agree index = 5 , cmd = 103
+test index is 6 
+servers agree index = 6 , cmd = 102
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.7		3	     28		   6
+Test (3B): rejoin of partitioned leader ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     6.0		3	    881		   5
+Test (3B): leader backs up quickly over incorrect follower logs ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --    16.2		5	   8511		 102
+Test (3B): RPC counts aren't too high ...
+servers agree index = 2 , cmd = 1182237898
+servers agree index = 3 , cmd = 1221349427
+servers agree index = 4 , cmd = 1836549955
+servers agree index = 5 , cmd = 276885921
+servers agree index = 6 , cmd = 663100059
+servers agree index = 7 , cmd = 445008797
+servers agree index = 8 , cmd = 867395306
+servers agree index = 9 , cmd = 428136448
+servers agree index = 10 , cmd = 299747879
+servers agree index = 11 , cmd = 518107874
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     2.1		3	     64		  12
+PASS
+ok  	raft	35.500s
+Test (3B): basic agreement ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.5		5	     32		   3
+Test (3B): agreement despite follower disconnection ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.4		3	    242		   8
+Test (3B): no agreement if too many followers disconnect ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.3		5	    692		   4
+Test (3B): concurrent Start()s ...
+test index is 2 
+servers agree index = 2 , cmd = 104
+test index is 3 
+servers agree index = 3 , cmd = 101
+test index is 4 
+servers agree index = 4 , cmd = 100
+test index is 5 
+servers agree index = 5 , cmd = 102
+test index is 6 
+servers agree index = 6 , cmd = 103
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.6		3	     26		   6
+Test (3B): rejoin of partitioned leader ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.9		3	    532		   4
+Test (3B): leader backs up quickly over incorrect follower logs ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --    18.1		5	   8571		 103
+Test (3B): RPC counts aren't too high ...
+servers agree index = 2 , cmd = 1237570401
+servers agree index = 3 , cmd = 236614813
+servers agree index = 4 , cmd = 782289987
+servers agree index = 5 , cmd = 123582013
+servers agree index = 6 , cmd = 1844127765
+servers agree index = 7 , cmd = 2037953349
+servers agree index = 8 , cmd = 859109032
+servers agree index = 9 , cmd = 546740475
+servers agree index = 10 , cmd = 201711112
+servers agree index = 11 , cmd = 407650261
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     2.1		3	     64		  12
+PASS
+ok  	raft	35.064s
+Test (3B): basic agreement ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.5		5	     44		   3
+Test (3B): agreement despite follower disconnection ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.6		3	    254		   8
+Test (3B): no agreement if too many followers disconnect ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.3		5	    697		   4
+Test (3B): concurrent Start()s ...
+test index is 2 
+servers agree index = 2 , cmd = 100
+test index is 3 
+servers agree index = 3 , cmd = 104
+test index is 4 
+servers agree index = 4 , cmd = 101
+test index is 5 
+servers agree index = 5 , cmd = 102
+test index is 6 
+servers agree index = 6 , cmd = 103
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.6		3	     30		   6
+Test (3B): rejoin of partitioned leader ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.7		3	    521		   4
+Test (3B): leader backs up quickly over incorrect follower logs ...
+--- FAIL: TestBackup3B (18.47s)
+    config.go:472: one(870249139143595445) failed to reach agreement
+Test (3B): RPC counts aren't too high ...
+servers agree index = 2 , cmd = 629923802
+servers agree index = 3 , cmd = 1912112664
+servers agree index = 4 , cmd = 1290927480
+servers agree index = 5 , cmd = 1086644635
+servers agree index = 6 , cmd = 1920191354
+servers agree index = 7 , cmd = 1304956413
+servers agree index = 8 , cmd = 2013581457
+servers agree index = 9 , cmd = 396141036
+servers agree index = 10 , cmd = 1146295971
+servers agree index = 11 , cmd = 817535422
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     2.1		3	     63		  12
+FAIL
+exit status 1
+FAIL	raft	36.346s
+Test (3B): basic agreement ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.5		5	     36		   3
+Test (3B): agreement despite follower disconnection ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     5.4		3	    236		   8
+Test (3B): no agreement if too many followers disconnect ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.4		5	    684		   4
+Test (3B): concurrent Start()s ...
+test index is 2 
+servers agree index = 2 , cmd = 103
+test index is 3 
+servers agree index = 3 , cmd = 100
+test index is 4 
+servers agree index = 4 , cmd = 101
+test index is 5 
+servers agree index = 5 , cmd = 102
+test index is 6 
+servers agree index = 6 , cmd = 104
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     0.6		3	     28		   6
+Test (3B): rejoin of partitioned leader ...
+  ... Header --  Time (sec)  Raft_peers  RPC_sends  Raft_agreement
+  ... Passed --     3.7		3	    475		   4
+Test (3B): leader backs up quickly over incorrect follower logs ...
