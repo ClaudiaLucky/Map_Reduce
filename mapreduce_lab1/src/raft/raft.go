@@ -302,104 +302,104 @@ type AppendEntriesReply struct {
 	Success bool
 }
 
-func (rf *Raft) AppendEntriesHandler(args AppendEntriesArgs, reply *AppendEntriesReply) {
-	rf.mu.Lock()
-
-	rf.lastReceivedTime = time.Now()
-	reply.Success = false
-
-	if args.Term < rf.currentTerm {
-		reply.Term = rf.currentTerm
-		//reply.NextIndex = rf.getLastIndex() + 1
-		//	fmt.Printf("%v currentTerm: %v rejected %v:%v\n",rf.me,rf.currentTerm,args.LeaderId,args.Term)
-		return
-	}
-
-	if args.Term > rf.currentTerm {
-		rf.currentTerm = args.Term
-		rf.role = FOLLOWER
-		rf.votedFor = -1
-	}
-	reply.Term = args.Term
-
-	if args.PrevLogIndex > len(rf.log) {
-		//reply.NextIndex = rf.getLastIndex() + 1
-		return
-	}
-
-	rf.log = rf.log[:args.PrevLogIndex+1]
-	rf.log = append(rf.log, args.Entries...)
-	reply.Success = true
-	//reply.NextIndex = rf.getLastIndex() + 1
-
-	reply.Term = rf.currentTerm
-
-	rf.persist()
-	rf.mu.Unlock()
-	return
-}
-
 // func (rf *Raft) AppendEntriesHandler(args AppendEntriesArgs, reply *AppendEntriesReply) {
 // 	rf.mu.Lock()
 
 // 	rf.lastReceivedTime = time.Now()
+// 	reply.Success = false
 
-// 	if args.Term >= rf.currentTerm {
-// 		if rf.role == CANDIDATE {
-// 			rf.role = FOLLOWER
-// 			rf.votedFor = -1
-// 		}
-// 		if args.Term > rf.currentTerm {
-// 			rf.currentTerm = args.Term
-// 			rf.role = FOLLOWER
-// 			rf.votedFor = -1
-// 		}
-
-// 		// receiving heartbeat
-// 		// receive appendlog command
-// 		// TODO: 3B, 3C receive appendlog command
-// 		//fmt.Printf("%v append log \n", rf.me)
-// 		//fmt.Printf("%v # %v \n", args, rf)
-// 		// if previous log doesn't match, return false instantly
-// 		if len(rf.log) <= args.PrevLogIndex || rf.log[args.PrevLogIndex].Term != args.PrevLogTerm {
-// 			reply.Success = false
-
-// 		} else {
-// 			// prevLog match
-// 			// remove all items after prevLog
-// 			if len(args.Entries) != 0 {
-// 				rf.log = rf.log[0 : args.PrevLogIndex+1]
-// 				//append all logs in args
-// 				for i := 0; i < len(args.Entries); i++ {
-// 					rf.log = append(rf.log, args.Entries[i])
-// 				}
-// 				//rf.log = append(rf.log, args.Entries...)
-// 			}
-// 			reply.Success = true
-
-// 			// if len(args.Entries) != 0 {
-// 			//  //fmt.Printf("%v append log %v loglength %v, log is %v \n", rf.me, reply.Success, len(rf.log), rf.log)
-// 			// }
-// 			if args.LeaderCommit > rf.commitIndex {
-// 				lastLogIndex := rf.log[len(rf.log)-1].Index
-// 				if args.LeaderCommit > lastLogIndex {
-// 					rf.commitIndex = lastLogIndex
-// 				} else {
-// 					rf.commitIndex = args.LeaderCommit
-// 				}
-// 				//  fmt.Printf("follower %v update commitedIndex = %v \n", rf.me, rf.commitIndex)
-// 			}
-// 		}
-
-// 	} else {
-// 		reply.Success = false
+// 	if args.Term < rf.currentTerm {
+// 		reply.Term = rf.currentTerm
+// 		//reply.NextIndex = rf.getLastIndex() + 1
+// 		//	fmt.Printf("%v currentTerm: %v rejected %v:%v\n",rf.me,rf.currentTerm,args.LeaderId,args.Term)
+// 		return
 // 	}
+
+// 	if args.Term > rf.currentTerm {
+// 		rf.currentTerm = args.Term
+// 		rf.role = FOLLOWER
+// 		rf.votedFor = -1
+// 	}
+// 	reply.Term = args.Term
+
+// 	if args.PrevLogIndex > len(rf.log) {
+// 		//reply.NextIndex = rf.getLastIndex() + 1
+// 		return
+// 	}
+
+// 	rf.log = rf.log[:args.PrevLogIndex+1]
+// 	rf.log = append(rf.log, args.Entries...)
+// 	reply.Success = true
+// 	//reply.NextIndex = rf.getLastIndex() + 1
+
 // 	reply.Term = rf.currentTerm
 
 // 	rf.persist()
 // 	rf.mu.Unlock()
 // 	return
 // }
+
+func (rf *Raft) AppendEntriesHandler(args AppendEntriesArgs, reply *AppendEntriesReply) {
+	rf.mu.Lock()
+
+	rf.lastReceivedTime = time.Now()
+
+	if args.Term >= rf.currentTerm {
+		if rf.role == CANDIDATE {
+			rf.role = FOLLOWER
+			rf.votedFor = -1
+		}
+		if args.Term > rf.currentTerm {
+			rf.currentTerm = args.Term
+			rf.role = FOLLOWER
+			rf.votedFor = -1
+		}
+
+		// receiving heartbeat
+		// receive appendlog command
+		// TODO: 3B, 3C receive appendlog command
+		//fmt.Printf("%v append log \n", rf.me)
+		//fmt.Printf("%v # %v \n", args, rf)
+		// if previous log doesn't match, return false instantly
+		if len(rf.log) <= args.PrevLogIndex || rf.log[args.PrevLogIndex].Term != args.PrevLogTerm {
+			reply.Success = false
+
+		} else {
+			// prevLog match
+			// remove all items after prevLog
+			if len(args.Entries) != 0 {
+				rf.log = rf.log[0 : args.PrevLogIndex+1]
+				//append all logs in args
+				for i := 0; i < len(args.Entries); i++ {
+					rf.log = append(rf.log, args.Entries[i])
+				}
+				//rf.log = append(rf.log, args.Entries...)
+			}
+			reply.Success = true
+
+			// if len(args.Entries) != 0 {
+			//  //fmt.Printf("%v append log %v loglength %v, log is %v \n", rf.me, reply.Success, len(rf.log), rf.log)
+			// }
+			if args.LeaderCommit > rf.commitIndex {
+				lastLogIndex := rf.log[len(rf.log)-1].Index
+				if args.LeaderCommit > lastLogIndex {
+					rf.commitIndex = lastLogIndex
+				} else {
+					rf.commitIndex = args.LeaderCommit
+				}
+				//  fmt.Printf("follower %v update commitedIndex = %v \n", rf.me, rf.commitIndex)
+			}
+		}
+
+	} else {
+		reply.Success = false
+	}
+	reply.Term = rf.currentTerm
+
+	rf.persist()
+	rf.mu.Unlock()
+	return
+}
 
 func (rf *Raft) sendAppendEntries(server int, args AppendEntriesArgs, reply *AppendEntriesReply) bool {
 
