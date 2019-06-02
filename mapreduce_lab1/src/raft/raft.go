@@ -339,110 +339,110 @@ func (rf *Raft) AppendEntriesHandler(args AppendEntriesArgs, reply *AppendEntrie
 	return
 }
 
-func (rf *Raft) AppendEntriesHandler(args AppendEntriesArgs, reply *AppendEntriesReply) {
-	rf.mu.Lock()
-
-	rf.lastReceivedTime = time.Now()
-
-	if args.Term >= rf.currentTerm {
-		if rf.role == CANDIDATE {
-			rf.role = FOLLOWER
-			rf.votedFor = -1
-		}
-		if args.Term > rf.currentTerm {
-			rf.currentTerm = args.Term
-			rf.role = FOLLOWER
-			rf.votedFor = -1
-		}
-
-		// receiving heartbeat
-		// receive appendlog command
-		// TODO: 3B, 3C receive appendlog command
-		//fmt.Printf("%v append log \n", rf.me)
-		//fmt.Printf("%v # %v \n", args, rf)
-		// if previous log doesn't match, return false instantly
-		if len(rf.log) <= args.PrevLogIndex || rf.log[args.PrevLogIndex].Term != args.PrevLogTerm {
-			reply.Success = false
-
-		} else {
-			// prevLog match
-			// remove all items after prevLog
-			if len(args.Entries) != 0 {
-				rf.log = rf.log[0 : args.PrevLogIndex+1]
-				//append all logs in args
-				for i := 0; i < len(args.Entries); i++ {
-					rf.log = append(rf.log, args.Entries[i])
-				}
-				//rf.log = append(rf.log, args.Entries...)
-			}
-			reply.Success = true
-
-			// if len(args.Entries) != 0 {
-			//  //fmt.Printf("%v append log %v loglength %v, log is %v \n", rf.me, reply.Success, len(rf.log), rf.log)
-			// }
-			if args.LeaderCommit > rf.commitIndex {
-				lastLogIndex := rf.log[len(rf.log)-1].Index
-				if args.LeaderCommit > lastLogIndex {
-					rf.commitIndex = lastLogIndex
-				} else {
-					rf.commitIndex = args.LeaderCommit
-				}
-				//  fmt.Printf("follower %v update commitedIndex = %v \n", rf.me, rf.commitIndex)
-			}
-		}
-
-	} else {
-		reply.Success = false
-	}
-	reply.Term = rf.currentTerm
-
-	rf.persist()
-	rf.mu.Unlock()
-	return
-}
-
-// func (rf *Raft) sendAppendEntries(server int, args AppendEntriesArgs, reply *AppendEntriesReply) bool {
-
-// 	ok := rf.peers[server].Call("Raft.AppendEntriesHandler", args, reply)
+// func (rf *Raft) AppendEntriesHandler(args AppendEntriesArgs, reply *AppendEntriesReply) {
 // 	rf.mu.Lock()
-// 	// if len(args.Entries) != 0 {
-// 	//  //  fmt.Printf("%v send %v info args: %v, %v  ok is %v, rf.currentTerm = %v, reply.term = %v \n", rf.me, server, args, reply, ok, rf.currentTerm, reply.Term)
-// 	// }
 
-// 	if ok {
-// 		if reply.Term > rf.currentTerm {
-// 			rf.currentTerm = reply.Term
+// 	rf.lastReceivedTime = time.Now()
+
+// 	if args.Term >= rf.currentTerm {
+// 		if rf.role == CANDIDATE {
 // 			rf.role = FOLLOWER
 // 			rf.votedFor = -1
-
-// 			//fmt.Printf("after receive msg from %v, %v isn't leader anymore \n", server, rf.me)
-// 		} else { // not heartbeat return
-// 			//TODO 3B 3C appending log
-// 			//fmt.Printf("%v send %v reply is: %v \n", rf.me, server, reply.Success)
-// 			if reply.Success == true {
-// 				if len(args.Entries) != 0 {
-
-// 					// update the nextIndex as last entry's next index
-// 					rf.nextIndex[server] = args.Entries[len(args.Entries)-1].Index + 1
-// 					rf.matchIndex[server] = args.Entries[len(args.Entries)-1].Index // match index use？
-// 				} else {
-// 					// rf.nextIndex[server]++
-// 					// rf.matchIndex[server]++ // match index use？
-// 				}
-// 				//  fmt.Printf("%v sends appendlog instr to server %v successfully nextIndex is %v matchIndex is %v\n", rf.me, server, rf.nextIndex[server], rf.matchIndex[server])
-// 			} else {
-// 				// log inconsistency, decrement nextIndex and retry
-// 				rf.nextIndex[server]--
-// 				//  fmt.Printf("leader %v send appendlog to server cause incosistency: %v, rf.nextIndex[server]: %v \n", rf.me, server, rf.nextIndex[server])
-// 			}
-
 // 		}
-// 	}
-// 	rf.persist()
+// 		if args.Term > rf.currentTerm {
+// 			rf.currentTerm = args.Term
+// 			rf.role = FOLLOWER
+// 			rf.votedFor = -1
+// 		}
 
+// 		// receiving heartbeat
+// 		// receive appendlog command
+// 		// TODO: 3B, 3C receive appendlog command
+// 		//fmt.Printf("%v append log \n", rf.me)
+// 		//fmt.Printf("%v # %v \n", args, rf)
+// 		// if previous log doesn't match, return false instantly
+// 		if len(rf.log) <= args.PrevLogIndex || rf.log[args.PrevLogIndex].Term != args.PrevLogTerm {
+// 			reply.Success = false
+
+// 		} else {
+// 			// prevLog match
+// 			// remove all items after prevLog
+// 			if len(args.Entries) != 0 {
+// 				rf.log = rf.log[0 : args.PrevLogIndex+1]
+// 				//append all logs in args
+// 				for i := 0; i < len(args.Entries); i++ {
+// 					rf.log = append(rf.log, args.Entries[i])
+// 				}
+// 				//rf.log = append(rf.log, args.Entries...)
+// 			}
+// 			reply.Success = true
+
+// 			// if len(args.Entries) != 0 {
+// 			//  //fmt.Printf("%v append log %v loglength %v, log is %v \n", rf.me, reply.Success, len(rf.log), rf.log)
+// 			// }
+// 			if args.LeaderCommit > rf.commitIndex {
+// 				lastLogIndex := rf.log[len(rf.log)-1].Index
+// 				if args.LeaderCommit > lastLogIndex {
+// 					rf.commitIndex = lastLogIndex
+// 				} else {
+// 					rf.commitIndex = args.LeaderCommit
+// 				}
+// 				//  fmt.Printf("follower %v update commitedIndex = %v \n", rf.me, rf.commitIndex)
+// 			}
+// 		}
+
+// 	} else {
+// 		reply.Success = false
+// 	}
+// 	reply.Term = rf.currentTerm
+
+// 	rf.persist()
 // 	rf.mu.Unlock()
-// 	return ok
+// 	return
 // }
+
+func (rf *Raft) sendAppendEntries(server int, args AppendEntriesArgs, reply *AppendEntriesReply) bool {
+
+	ok := rf.peers[server].Call("Raft.AppendEntriesHandler", args, reply)
+	rf.mu.Lock()
+	// if len(args.Entries) != 0 {
+	//  //  fmt.Printf("%v send %v info args: %v, %v  ok is %v, rf.currentTerm = %v, reply.term = %v \n", rf.me, server, args, reply, ok, rf.currentTerm, reply.Term)
+	// }
+
+	if ok {
+		if reply.Term > rf.currentTerm {
+			rf.currentTerm = reply.Term
+			rf.role = FOLLOWER
+			rf.votedFor = -1
+
+			//fmt.Printf("after receive msg from %v, %v isn't leader anymore \n", server, rf.me)
+		} else { // not heartbeat return
+			//TODO 3B 3C appending log
+			//fmt.Printf("%v send %v reply is: %v \n", rf.me, server, reply.Success)
+			if reply.Success == true {
+				if len(args.Entries) != 0 {
+
+					// update the nextIndex as last entry's next index
+					rf.nextIndex[server] = args.Entries[len(args.Entries)-1].Index + 1
+					rf.matchIndex[server] = args.Entries[len(args.Entries)-1].Index // match index use？
+				} else {
+					// rf.nextIndex[server]++
+					// rf.matchIndex[server]++ // match index use？
+				}
+				//  fmt.Printf("%v sends appendlog instr to server %v successfully nextIndex is %v matchIndex is %v\n", rf.me, server, rf.nextIndex[server], rf.matchIndex[server])
+			} else {
+				// log inconsistency, decrement nextIndex and retry
+				rf.nextIndex[server]--
+				//  fmt.Printf("leader %v send appendlog to server cause incosistency: %v, rf.nextIndex[server]: %v \n", rf.me, server, rf.nextIndex[server])
+			}
+
+		}
+	}
+	rf.persist()
+
+	rf.mu.Unlock()
+	return ok
+}
 
 //
 // the service using Raft (e.g. a k/v server) wants to start
