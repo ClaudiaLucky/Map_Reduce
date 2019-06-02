@@ -335,6 +335,8 @@ func TestBackup3B(t *testing.T) {
 	cfg := make_config(t, servers, false)
 	defer cfg.cleanup()
 
+	var commands []int
+
 	cfg.begin("Test (3B): leader backs up quickly over incorrect follower logs")
 
 	cfg.one(rand.Int(), servers, true)
@@ -347,7 +349,11 @@ func TestBackup3B(t *testing.T) {
 
 	// submit lots of commands that won't commit
 	for i := 0; i < 50; i++ {
-		cfg.rafts[leader1].Start(rand.Int())
+		a := rand.Int()
+		commands = append(commands, a)
+		//cfg.rafts[leader1].Start(rand.Int())
+		fmt.Printf("------phase 1 commands are %v \n", commands)
+		cfg.rafts[leader1].Start(a)
 	}
 
 	time.Sleep(RaftElectionTimeout / 2)
@@ -362,7 +368,10 @@ func TestBackup3B(t *testing.T) {
 
 	// lots of successful commands to new group.
 	for i := 0; i < 50; i++ {
-		cfg.one(rand.Int(), 3, true)
+		a := rand.Int()
+		commands = append(commands, a)
+		fmt.Printf("------phase 2 commands are %v \n", commands)
+		cfg.one(a, 3, true)
 	}
 
 	// now another partitioned leader and one follower
@@ -375,7 +384,10 @@ func TestBackup3B(t *testing.T) {
 
 	// lots more commands that won't commit
 	for i := 0; i < 50; i++ {
-		cfg.rafts[leader2].Start(rand.Int())
+		a := rand.Int()
+		commands = append(commands, a)
+		fmt.Printf("------phase 3 commands are %v \n", commands)
+		cfg.rafts[leader2].Start(a)
 	}
 
 	time.Sleep(RaftElectionTimeout / 2)
@@ -387,20 +399,37 @@ func TestBackup3B(t *testing.T) {
 	cfg.connect((leader1 + 0) % servers)
 	cfg.connect((leader1 + 1) % servers)
 	cfg.connect(other)
+	var count int
+	for i := 0; i < servers; i++ {
+		if cfg.connected[i] {
+			count++
+		}
+	}
+	fmt.Printf("number of servers is %v \n", count)
+	leadernow := cfg.checkOneLeader()
+	fmt.Printf("leader now is %v \n", leadernow)
 
 	// lots of successful commands to new group.
 	for i := 0; i < 50; i++ {
-		cfg.one(rand.Int(), 3, true)
+		a := rand.Int()
+		commands = append(commands, a)
+		fmt.Printf("------phase 4 commands are %v \n", commands)
+		cfg.one(a, 3, true)
 	}
 
 	// now everyone
 	for i := 0; i < servers; i++ {
 		cfg.connect(i)
 	}
-	cfg.one(rand.Int(), servers, true)
+	a := rand.Int()
+	commands = append(commands, a)
+	fmt.Printf("------phase 5 commands are %v \n", commands)
+	cfg.one(a, servers, true)
 	for i := 0; i < servers; i++ {
 		fmt.Printf("%v", cfg.rafts[i].log)
 	}
+	fmt.Printf("------phase  commands are %v \n", commands)
+
 	cfg.end()
 }
 
@@ -522,6 +551,7 @@ func TestPersist13C(t *testing.T) {
 	cfg.begin("Test (3C): basic persistence")
 
 	cfg.one(11, servers, true)
+	fmt.Printf("pass 11 \n")
 
 	// crash and re-start all
 	for i := 0; i < servers; i++ {
@@ -533,6 +563,7 @@ func TestPersist13C(t *testing.T) {
 	}
 
 	cfg.one(12, servers, true)
+	fmt.Printf("pass 12 \n")
 
 	leader1 := cfg.checkOneLeader()
 	cfg.disconnect(leader1)
