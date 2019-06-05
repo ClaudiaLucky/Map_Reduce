@@ -191,7 +191,7 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 	//fmt.Println("Enter Request Vote")
 	fmt.Printf("requester id %v requester term %v currentraft id %v current raft term  %v args = %v, rf = %v \n", args.CandidateID, args.Term, rf.me, rf.currentTerm, args, rf.votedFor)
 	//resetTimer(&rf.lastReceivedTime)
-	rf.lastReceivedTime = time.Now()
+	//	rf.lastReceivedTime = time.Now()
 	//fmt.Printf("%v reset receive requestvote time \n", rf.me)
 
 	if args.Term < rf.currentTerm {
@@ -220,13 +220,14 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 		}
 		reply.VoteGranted = false
 
+		fmt.Printf("args.candidate = %v, rf.me = %v , args.LastLogTerm = %v, rf.log[len(rf.log)-1].Term = %v, args.LastLogIndex = %v, len(rf.log)-1 = %v\n", args.CandidateID, rf.me, args.LastLogTerm, rf.log[len(rf.log)-1].Term, args.LastLogIndex, len(rf.log)-1)
 		if (rf.votedFor == -1 || rf.votedFor == args.CandidateID) &&
 			(args.LastLogTerm > rf.log[len(rf.log)-1].Term ||
 				(args.LastLogTerm == rf.log[len(rf.log)-1].Term && args.LastLogIndex >= len(rf.log)-1)) {
 			reply.VoteGranted = true
 			rf.votedFor = args.CandidateID
 
-			//  fmt.Printf("%v give his vote to %v \n", rf.me, args.CandidateID)
+			fmt.Printf("%v give his vote to %v \n", rf.me, args.CandidateID)
 		}
 	}
 	rf.persist()
@@ -338,6 +339,8 @@ func (rf *Raft) AppendEntriesHandler(args AppendEntriesArgs, reply *AppendEntrie
 			reply.Success = false
 
 		} else {
+			reply.Success = true
+
 			// prevLog match
 			// remove all items after prevLog
 
@@ -347,8 +350,6 @@ func (rf *Raft) AppendEntriesHandler(args AppendEntriesArgs, reply *AppendEntrie
 			// 	rf.log = append(rf.log, args.Entries[i])
 
 			rf.log = append(rf.log, args.Entries...)
-
-			reply.Success = true
 
 			// if len(args.Entries) != 0 {
 			//  //fmt.Printf("%v append log %v loglength %v, log is %v \n", rf.me, reply.Success, len(rf.log), rf.log)
