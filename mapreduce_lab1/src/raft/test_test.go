@@ -241,7 +241,6 @@ loop:
 		failed := false
 		cmds := []int{}
 		for index := range is {
-			fmt.Printf("test index is %v \n", index)
 			cmd := cfg.wait(index, servers, term)
 			if ix, ok := cmd.(int); ok {
 				if ix == -1 {
@@ -301,7 +300,6 @@ func TestRejoin3B(t *testing.T) {
 
 	// leader network failure
 	leader1 := cfg.checkOneLeader()
-	//	fmt.Printf("----leader %v go away \n", leader1)
 	cfg.disconnect(leader1)
 
 	// make old leader try to agree on some entries
@@ -314,14 +312,13 @@ func TestRejoin3B(t *testing.T) {
 
 	// new leader network failure
 	leader2 := cfg.checkOneLeader()
-	//	fmt.Printf("----leader %v go away \n", leader2)
 	cfg.disconnect(leader2)
-	//	fmt.Printf("---previous leader %v connect again \n", leader1)
+
 	// old leader connected again
 	cfg.connect(leader1)
 
 	cfg.one(104, 2, true)
-	//	fmt.Printf("---previous leader %v connect again \n", leader2)
+
 	// all together now
 	cfg.connect(leader2)
 
@@ -335,8 +332,6 @@ func TestBackup3B(t *testing.T) {
 	cfg := make_config(t, servers, false)
 	defer cfg.cleanup()
 
-	var commands []int
-
 	cfg.begin("Test (3B): leader backs up quickly over incorrect follower logs")
 
 	cfg.one(rand.Int(), servers, true)
@@ -349,11 +344,7 @@ func TestBackup3B(t *testing.T) {
 
 	// submit lots of commands that won't commit
 	for i := 0; i < 50; i++ {
-		a := rand.Int()
-		commands = append(commands, a)
-		//cfg.rafts[leader1].Start(rand.Int())
-		fmt.Printf("------phase 1 commands are %v \n", commands)
-		cfg.rafts[leader1].Start(a)
+		cfg.rafts[leader1].Start(rand.Int())
 	}
 
 	time.Sleep(RaftElectionTimeout / 2)
@@ -368,10 +359,7 @@ func TestBackup3B(t *testing.T) {
 
 	// lots of successful commands to new group.
 	for i := 0; i < 50; i++ {
-		a := rand.Int()
-		commands = append(commands, a)
-		fmt.Printf("------phase 2 commands are %v \n", commands)
-		cfg.one(a, 3, true)
+		cfg.one(rand.Int(), 3, true)
 	}
 
 	// now another partitioned leader and one follower
@@ -384,10 +372,7 @@ func TestBackup3B(t *testing.T) {
 
 	// lots more commands that won't commit
 	for i := 0; i < 50; i++ {
-		a := rand.Int()
-		commands = append(commands, a)
-		fmt.Printf("------phase 3 commands are %v \n", commands)
-		cfg.rafts[leader2].Start(a)
+		cfg.rafts[leader2].Start(rand.Int())
 	}
 
 	time.Sleep(RaftElectionTimeout / 2)
@@ -399,36 +384,17 @@ func TestBackup3B(t *testing.T) {
 	cfg.connect((leader1 + 0) % servers)
 	cfg.connect((leader1 + 1) % servers)
 	cfg.connect(other)
-	var count int
-	for i := 0; i < servers; i++ {
-		if cfg.connected[i] {
-			count++
-		}
-	}
-	fmt.Printf("number of servers is %v \n", count)
-	leadernow := cfg.checkOneLeader()
-	fmt.Printf("leader now is %v \n", leadernow)
 
 	// lots of successful commands to new group.
 	for i := 0; i < 50; i++ {
-		a := rand.Int()
-		commands = append(commands, a)
-		fmt.Printf("------phase 4 commands are %v \n", commands)
-		cfg.one(a, 3, true)
+		cfg.one(rand.Int(), 3, true)
 	}
 
 	// now everyone
 	for i := 0; i < servers; i++ {
 		cfg.connect(i)
 	}
-	a := rand.Int()
-	commands = append(commands, a)
-	fmt.Printf("------phase 5 commands are %v \n", commands)
-	cfg.one(a, servers, true)
-	for i := 0; i < servers; i++ {
-		fmt.Printf("%v", cfg.rafts[i].log)
-	}
-	fmt.Printf("------phase  commands are %v \n", commands)
+	cfg.one(rand.Int(), servers, true)
 
 	cfg.end()
 }
@@ -551,7 +517,6 @@ func TestPersist13C(t *testing.T) {
 	cfg.begin("Test (3C): basic persistence")
 
 	cfg.one(11, servers, true)
-	fmt.Printf("pass 11 \n")
 
 	// crash and re-start all
 	for i := 0; i < servers; i++ {
@@ -563,7 +528,6 @@ func TestPersist13C(t *testing.T) {
 	}
 
 	cfg.one(12, servers, true)
-	fmt.Printf("pass 12 \n")
 
 	leader1 := cfg.checkOneLeader()
 	cfg.disconnect(leader1)
@@ -805,12 +769,18 @@ func TestFigure8Unreliable3C(t *testing.T) {
 			}
 		}
 	}
+	fmt.Printf("end first phase test\n")
+	leader1 := cfg.checkOneLeader()
+	fmt.Printf("leader1 is %v\n", leader1)
 
 	for i := 0; i < servers; i++ {
 		if cfg.connected[i] == false {
 			cfg.connect(i)
 		}
 	}
+
+	leader2 := cfg.checkOneLeader()
+	fmt.Printf("leader2 is %v\n", leader2)
 
 	cfg.one(rand.Int()%10000, servers, true)
 
